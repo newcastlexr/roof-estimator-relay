@@ -82,8 +82,7 @@ app.post('/api/submit-lead', async (req, res) => {
     jobCategory:  'Residential',
     workType:     'Retail',
     notes,
-    // Remove or set these if you want to auto-assign:
-    // salesPerson: 'rep@yourcompany.com',
+    salesPerson: 'paul@mdjconstruction.net',
   };
 
   try {
