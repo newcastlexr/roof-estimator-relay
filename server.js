@@ -46,6 +46,10 @@ app.post('/api/submit-lead', async (req, res) => {
     lastName,
     email,
     phone,
+    address,
+    wantsCallback,
+    callbackDay,
+    callbackTime,
     // Estimator data we'll stuff into notes
     roofSize,
     pitch,
@@ -69,6 +73,9 @@ app.post('/api/submit-lead', async (req, res) => {
     `Existing layers: ${layers || 'not provided'}`,
     `Extras: ${extras?.length ? extras.join(', ') : 'none'}`,
     `Estimate range: $${estimateLow?.toLocaleString()} – $${estimateHigh?.toLocaleString()}`,
+    wantsCallback
+      ? `Wants a callback: yes — ${callbackDay || 'any day'}, ${callbackTime || 'any time'}`
+      : `Wants a callback: no`,
     `Submitted via website estimator`,
   ].join('\n');
 
@@ -79,8 +86,11 @@ app.post('/api/submit-lead', async (req, res) => {
     emailAddress: email,
     phoneNumber1: phone || '',
     phoneType1:   'Mobile',
+    street:       address || '',
+    country:      'US',
     jobCategory:  'Residential',
     workType:     'Retail',
+    priority:     wantsCallback ? 'High' : 'Normal',
     notes,
     salesPerson: 'paul@mdjconstruction.net',
   };
